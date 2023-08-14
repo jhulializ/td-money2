@@ -1,32 +1,36 @@
 {
-    "transactions": [
-        {
-            "id": 1,
-            "description": "Desenvolvimento de site",
-            "type": "income",
-            "category": "Venda",
-            "price": 14000,
-            "createdAt": "2023-08-07T13:58:16.629Z"
-
-        },
-        {
-            "id": 2,
-            "description": "Hamburguer",
-            "type": "Autcome",
-            "category": "Alimentação",
-            "price": 60,
-            "createdAt": "2023-08-07T13:38:16.629Z"
-
-        },
-        {
-            "id": 3,
-            "description": "sorvete",
-            "type": "Autcome",
-            "category": "Alimentação",
-            "price": 150,
-            "createdAt": "2023-08-05T10:35:16.629Z"
-
-        }
-    
-    ]
+  "transactions": [
+    {
+      "id": 1,
+      "description": "Desenvolvimento de site",
+      "type": "income",
+      "category": "Venda",
+      "price": 14000,
+      "createdAt": "2023-08-07T13:58:16.629Z"
+    },
+    {
+      "id": 2,
+      "description": "Hamburguer",
+      "type": "Autcome",
+      "category": "Alimentação",
+      "price": 60,
+      "createdAt": "2023-08-07T13:38:16.629Z"
+    },
+    {
+      "id": 3,
+      "description": "sorvete",
+      "type": "Autcome",
+      "category": "Alimentação",
+      "price": 150,
+      "createdAt": "2023-08-05T10:35:16.629Z"
+    },
+    {
+      "description": "bronze",
+      "price": 60,
+      "category": "bronze neon",
+      "type": "income",
+      "createdAt": "2023-08-14T19:54:14.561Z",
+      "id": 4
+    }
+  ]
 }

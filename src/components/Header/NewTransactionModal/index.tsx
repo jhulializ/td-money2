@@ -1,10 +1,12 @@
-import * as Dialog from "@radix-ui/react-dialog";
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as Dialog from '@radix-ui/react-dialog';
 import { ArrowCircleDown, ArrowCircleUp, X } from "phosphor-react";
+import { useContext } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 import * as z from 'zod';
 
-import { CloseButton, Content, Overlay, TransactionType, TransactionTypeButton } from "./styles";
-import { Controller, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { CloseButton, Content, Overlay, TransactionType, TransactionTypeButton } from './styles';
+import { TransactionsContext } from '../../../contexts/TransactionsContext';
 
 const newTransactionFormSchema = z.object({
   description: z.string(),
@@ -16,11 +18,14 @@ const newTransactionFormSchema = z.object({
 type NewTransactionFormInputs = z.infer<typeof newTransactionFormSchema>;
 
 export function NewTransactionModal() {
+  const { createTransaction } = useContext(TransactionsContext);
+
   const {
     control,
     register,
     handleSubmit,
-    formState: { isSubmitting }
+    formState: { isSubmitting },
+    reset
   } = useForm<NewTransactionFormInputs>({
     resolver: zodResolver(newTransactionFormSchema),
     defaultValues: {
@@ -29,19 +34,27 @@ export function NewTransactionModal() {
   })
 
   async function handleCreateNewTransaction(data: NewTransactionFormInputs) {
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    const { description, price, category, type } = data;
 
-    console.log(data);
+    await createTransaction({
+      description,
+      price,
+      category,
+      type,
+    });
+
+    reset();
   }
 
   return (
-    <Dialog.Portal> 
+    <Dialog.Portal>
       <Overlay />
+
       <Content>
         <Dialog.Title>Nova Transação</Dialog.Title>
 
         <CloseButton>
-            <X size={24}/>
+          <X size={24} />
         </CloseButton>
 
         <form onSubmit={handleSubmit(handleCreateNewTransaction)}>
@@ -63,6 +76,7 @@ export function NewTransactionModal() {
             required
             {...register('category')}
           />
+
           <Controller
             control={control}
             name="type"
@@ -84,12 +98,11 @@ export function NewTransactionModal() {
               )
             }}
           />
-         
+
           <button type="submit" disabled={isSubmitting}>
             Cadastrar
           </button>
         </form>
-
       </Content>
     </Dialog.Portal>
   );
